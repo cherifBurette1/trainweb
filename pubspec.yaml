@@ -1,0 +1,49 @@
+name: railway_admin
+description: A new Flutter application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.1
+  url_launcher: ^5.1.4
+  url_launcher_web: ^0.1.0
+  mailto: ^1.0.0
+  flutter_svg: ^0.19.2+1
+  xs_progress_hud: ^1.0.2
+  http: 
+  shared_preferences: ^0.5.4+5
+  google_fonts: 
+  fl_chart: ^0.36.1
+  provider: ^5.0.0
+#  permission:
+#  geolocator: ^5.3.1
+#  geocoding: ^1.0.5
+#  flutter_polyline_points: ^0.2.4
+  google_maps_flutter: ^1.0.10
+  google_maps_flutter_web: ^0.1.0+8
+  geolocator: ^6.2.1
+  flutter_polyline_points: ^0.2.4
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - app_images/
+    - app_icons/
+    - assets/images/
+    - assets/icons/
+    - assets/icons/train1.svg
