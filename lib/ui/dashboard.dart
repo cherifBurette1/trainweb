@@ -9,6 +9,7 @@ import 'package:railway_admin/utils/colors_file.dart';
 import 'package:railway_admin/utils/dashboard_drawer.dart';
 import 'package:railway_admin/dashboard_screen.dart';
 import '../utils/colors_file.dart';
+import 'package:railway_admin/map.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _DashboardState extends State<Dashboard>
     Trips(),
     Tickets(),
     Trains(),
+    Map(),
   ];
 
   List myTabs = <Widget>[
@@ -42,6 +44,9 @@ class _DashboardState extends State<Dashboard>
     ),
     Tab(
       text: "Trains",
+    ),
+    Tab(
+      text: "Train Tracking",
     ),
   ];
 
