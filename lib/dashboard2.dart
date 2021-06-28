@@ -11,12 +11,12 @@ import 'package:railway_admin/dashboard_screen.dart';
 import '../utils/colors_file.dart';
 import 'package:railway_admin/map.dart';
 
-class Dashboard extends StatefulWidget {
+class Dashboard2 extends StatefulWidget {
   @override
-  _DashboardState createState() => _DashboardState();
+  _Dashboard2State createState() => _Dashboard2State();
 }
 
-class _DashboardState extends State<Dashboard>
+class _Dashboard2State extends State<Dashboard2>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
@@ -55,7 +55,8 @@ class _DashboardState extends State<Dashboard>
     // TODO: implement initState
 
     super.initState();
-    _tabController = TabController(vsync: this, length: myTabs.length);
+    _tabController =
+        TabController(initialIndex: 5, vsync: this, length: myTabs.length);
   }
 
   @override

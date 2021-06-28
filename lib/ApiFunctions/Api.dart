@@ -8,7 +8,6 @@ import 'package:railway_admin/models/tickes_model.dart';
 import 'package:railway_admin/models/trains_model.dart';
 import 'package:railway_admin/models/trips.dart';
 import 'package:railway_admin/models/users.dart';
-import 'package:railway_admin/ui/home.dart';
 import 'package:railway_admin/ui/splash.dart';
 import 'package:railway_admin/utils/custom_snackBar.dart';
 import 'package:railway_admin/utils/global_vars.dart';
@@ -121,8 +120,7 @@ class Api {
     XsProgressHud.hide();
     if (response.statusCode == 200) {
       return TripsModel.fromJson(dataContent);
-    }
-    else if (response.statusCode == 401) {
+    } else if (response.statusCode == 401) {
       CustomSnackBar(
           _scaffoldKey, context, json.decode(response.body).toString());
       // clearAllData();
@@ -143,13 +141,13 @@ class Api {
   }
 
   Future userRegister(
-      GlobalKey<ScaffoldState> _scaffoldKey,
-      String name,
-      String email,
-      String password,
-      String passwordConfirmation,
-      String phone,
-      ) async {
+    GlobalKey<ScaffoldState> _scaffoldKey,
+    String name,
+    String email,
+    String password,
+    String passwordConfirmation,
+    String phone,
+  ) async {
     XsProgressHud.show(context);
     final String apiUrl = baseUrl + registerUrl;
     var data = {
@@ -177,19 +175,18 @@ class Api {
     print("dataContent2:: ${response.body.toString().contains('errors')}");
 
     if (!(response.body).toString().contains('errors')) {
-      CustomSnackBar(
-          _scaffoldKey, context, "Account Created Successfully");
+      CustomSnackBar(_scaffoldKey, context, "Account Created Successfully");
       Future.delayed(Duration(seconds: 3), () {
         navigateAndClearStack(context, SplashScreen());
       });
       return UsersModel.fromJson(dataContent);
       print(json.decode(response.body));
     } else {
-      CustomSnackBar(
-          _scaffoldKey, context, dataContent["errors"].toString());
+      CustomSnackBar(_scaffoldKey, context, dataContent["errors"].toString());
       return false;
     }
   }
+
   Future userLogin(GlobalKey<ScaffoldState> _scaffoldKey, String email,
       String password) async {
     XsProgressHud.show(context);
@@ -219,15 +216,15 @@ class Api {
   }
 
   Future addTripApi(
-      GlobalKey<ScaffoldState> _scaffoldKey,
-      dynamic departmentTime,
-      dynamic arrivalTime,
-      dynamic base,
-      dynamic destination,
-      dynamic priceA,
-      dynamic priceB,
-      dynamic priceC,
-      ) async {
+    GlobalKey<ScaffoldState> _scaffoldKey,
+    dynamic departmentTime,
+    dynamic arrivalTime,
+    dynamic base,
+    dynamic destination,
+    dynamic priceA,
+    dynamic priceB,
+    dynamic priceC,
+  ) async {
     XsProgressHud.show(context);
     final String apiUrl = baseUrl + tripsUrl;
     var data = {
@@ -239,7 +236,6 @@ class Api {
       "priceA": priceA,
       "priceB": priceA,
       "priceC": priceA,
-
     };
     var userToJson = json.encode(data);
     final response = await http.post(
@@ -287,8 +283,8 @@ class Api {
     if (response.statusCode == 200) {
       print("body :" + json.decode(response.body).toString());
       // Navigator.pop(context);
-      CustomSnackBar(_scaffoldKey, context,
-          json.decode(response.body).toString());
+      CustomSnackBar(
+          _scaffoldKey, context, json.decode(response.body).toString());
       Future.delayed(Duration(seconds: 3), () {
         navigateAndClearStack(context, SplashScreen());
       });
@@ -301,8 +297,8 @@ class Api {
           _scaffoldKey, context, json.decode(response.body).toString());
       return false;
     }
-
   }
+
   Future deleteUserApi(GlobalKey<ScaffoldState> _scaffoldKey, int Id) async {
     XsProgressHud.show(context);
 
@@ -334,7 +330,6 @@ class Api {
           _scaffoldKey, context, json.decode(response.body).toString());
       return false;
     }
-
   }
 
   Future userTicketsApi(GlobalKey<ScaffoldState> _scaffoldKey) async {
@@ -411,7 +406,8 @@ class Api {
     }
   }
 
-  Future AddToWalletApi(GlobalKey<ScaffoldState> _scaffoldKey,String id , String wallet) async {
+  Future AddToWalletApi(
+      GlobalKey<ScaffoldState> _scaffoldKey, String id, String wallet) async {
     XsProgressHud.show(context);
     final String apiUrl = baseUrl + walletUrl;
     var data = {
@@ -432,18 +428,15 @@ class Api {
     XsProgressHud.hide();
     if (response.statusCode == 200) {
       // Navigator.pop(context);
-      CustomSnackBar(_scaffoldKey, context,
-          response.body.toString());
+      CustomSnackBar(_scaffoldKey, context, response.body.toString());
       print(response.body.toString());
       Future.delayed(Duration(seconds: 3), () {
         navigateAndClearStack(context, SplashScreen());
       });
       return true;
     } else {
-      CustomSnackBar(_scaffoldKey, context,
-          json.decode(response.body));
+      CustomSnackBar(_scaffoldKey, context, json.decode(response.body));
       return false;
     }
   }
-
 }

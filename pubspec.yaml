@@ -10,10 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  url_launcher: 
   cupertino_icons: ^1.0.1
-  url_launcher: ^5.1.4
-  url_launcher_web: ^0.1.0
   mailto: ^1.0.0
   flutter_svg: ^0.19.2+1
   xs_progress_hud: ^1.0.2
@@ -22,6 +20,7 @@ dependencies:
   google_fonts: 
   fl_chart: ^0.36.1
   provider: ^5.0.0
+  
 #  permission:
 #  geolocator: ^5.3.1
 #  geocoding: ^1.0.5
@@ -47,3 +46,4 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/train1.svg
+    - assets/json/

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:railway_admin/utils/colors_file.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/colors_file.dart';
 import 'responsive_widget.dart';
@@ -51,13 +50,12 @@ class About extends StatelessWidget {
               Text(
                 _description,
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
-                  color: Colors.black.withOpacity(.7),
-                  fontSize: 20,
-                ),
+                      color: Colors.black.withOpacity(.7),
+                      fontSize: 20,
+                    ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
-
             ],
           ),
         ),
@@ -87,7 +85,7 @@ class About extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                  'ABOUT APPLICATION',
+                'ABOUT APPLICATION',
                 style: TextStyle(
                   color: AppColors.yellow,
                   fontSize: 20,
@@ -104,7 +102,6 @@ class About extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
-
             ],
           ),
         ),

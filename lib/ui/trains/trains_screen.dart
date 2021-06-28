@@ -3,6 +3,40 @@ import 'package:railway_admin/ApiFunctions/Api.dart';
 import 'package:railway_admin/models/trains_model.dart';
 import 'package:railway_admin/ui/home.dart';
 import 'package:railway_admin/utils/colors_file.dart';
+import 'package:railway_admin/models/trainmo.dart';
+import 'package:railway_admin/utils/global_vars.dart';
+
+var trainnumController = TextEditingController();
+var classacarsController = TextEditingController();
+var classbcarsController = TextEditingController();
+var aseatsController = TextEditingController();
+var bseatsController = TextEditingController();
+List<Trip> trips = [
+  Trip(
+    id: 0,
+    name: "Express",
+  ),
+  Trip(
+    id: 1,
+    name: "Special",
+  ),
+  Trip(
+    id: 2,
+    name: "Turbo",
+  ),
+  Trip(
+    id: 3,
+    name: "Fast",
+  ),
+  Trip(
+    id: 4,
+    name: "VIP",
+  ),
+  Trip(
+    id: 5,
+    name: "Spanish",
+  ),
+];
 
 class Trains extends StatefulWidget {
   @override
@@ -14,7 +48,6 @@ class _TrainsState extends State<Trains> {
   List<Success> trainsList = List();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   @override
   void initState() {
@@ -58,36 +91,36 @@ class _TrainsState extends State<Trains> {
           children: [
             trainsList.length == 0
                 ? Center(
-              child: Container(
-                child: Text("The System Has No Trains Yet . "),
-              ),
-            )
-                : Container(
-              // color: Colors.red,
-              height: MediaQuery.of(context).size.height/1.2,
-              width: MediaQuery.of(context).size.width / 2.5,
-              child: ListView.builder(
-                itemCount: trainsList.length,
-                itemBuilder: (ctx, index) {
-                  return ListTile(
-                    onTap: () {},
-                    contentPadding: EdgeInsets.only(left: 20, top: 5),
-                    leading:  CircleAvatar(
-                      radius: 20,
-                      backgroundColor: primaryAppColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          'app_images/train.png',
-                          color: whiteColor,
-                        ),
-                      ),
+                    child: Container(
+                      child: Text("The System Has No Trains Yet . "),
                     ),
-                    title: Text(trainsList[index].type),
-                  );
-                },
-              ),
-            ),
+                  )
+                : Container(
+                    // color: Colors.red,
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    child: ListView.builder(
+                      itemCount: trainsList.length,
+                      itemBuilder: (ctx, index) {
+                        return ListTile(
+                          onTap: () {},
+                          contentPadding: EdgeInsets.only(left: 20, top: 5),
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: primaryAppColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'app_images/train.png',
+                                color: whiteColor,
+                              ),
+                            ),
+                          ),
+                          title: Text(trainsList[index].type),
+                        );
+                      },
+                    ),
+                  ),
             VerticalDivider(
               thickness: 5,
               width: 10,
@@ -122,7 +155,168 @@ class _TrainsState extends State<Trains> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-
+                        Container(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          width: MediaQuery.of(context).size.width / 3,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(.1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: DropdownButton(
+                            hint: Text(
+                              "Choose Train Type",
+                              style: TextStyle(
+                                  // color: Color(0xffb8c3cb).withOpacity(0.5),
+                                  ),
+                            ),
+                            icon: Icon(Icons.keyboard_arrow_down,
+                                color: Color(0xffb8c3cb)),
+                            isExpanded: true,
+                            underline: SizedBox(),
+                            dropdownColor: whiteColor,
+                            style: TextStyle(color: blackColor),
+                            value: train_id,
+                            onChanged: (newValue) {
+                              setState(() {
+                                train_id = newValue;
+                                print(train_id);
+                              });
+                            },
+                            items: trips.map((valueItem) {
+                              return DropdownMenuItem(
+                                value: valueItem.id,
+                                child: Text(valueItem.name),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 6.5,
+                            child: TextFormField(
+                              controller: trainnumController,
+                              onTap: () {},
+                              decoration: InputDecoration(
+                                  fillColor: Colors.grey.withOpacity(.1),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 10),
+                                  hintText: "Train Number",
+                                  hintStyle: TextStyle(
+                                      color: blackColor, fontSize: 13)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 6,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                child: TextFormField(
+                                  controller: classacarsController,
+                                  onTap: () {},
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.grey.withOpacity(.1),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 10),
+                                      hintText: "number of class A cars",
+                                      hintStyle: TextStyle(
+                                          color: blackColor, fontSize: 13)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 6,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                child: TextFormField(
+                                  controller: aseatsController,
+                                  onTap: () {},
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.grey.withOpacity(.1),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 10),
+                                      hintText: "class A seats",
+                                      hintStyle: TextStyle(
+                                          color: blackColor, fontSize: 13)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 6,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                child: TextFormField(
+                                  controller: classbcarsController,
+                                  onTap: () {},
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.grey.withOpacity(.1),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 10),
+                                      hintText: "number of class B cars",
+                                      hintStyle: TextStyle(
+                                          color: blackColor, fontSize: 13)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 6,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                child: TextFormField(
+                                  controller: bseatsController,
+                                  onTap: () {},
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.grey.withOpacity(.1),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 10),
+                                      hintText: "Class B seats",
+                                      hintStyle: TextStyle(
+                                          color: blackColor, fontSize: 13)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                     Column(
@@ -200,7 +394,7 @@ class _TrainsState extends State<Trains> {
                   value = newValue;
                   value == "delete"
                       ? Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Home()))
+                          MaterialPageRoute(builder: (context) => Home()))
                       : null;
                 });
               },
