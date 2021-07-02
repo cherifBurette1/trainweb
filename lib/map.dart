@@ -81,7 +81,7 @@ class _MapState extends State<Map> {
   }
 
   checkcounter() {
-    if (counter >= 25) {
+    if (counter >= 51) {
       setState(() {
         counter = 0;
       });
@@ -89,7 +89,7 @@ class _MapState extends State<Map> {
   }
 
   checkcounter1() {
-    if (counter1 >= 9) {
+    if (counter1 >= 65) {
       setState(() {
         counter1 = 0;
       });
@@ -97,7 +97,7 @@ class _MapState extends State<Map> {
   }
 
   checkcounter2() {
-    if (counter1 >= 13) {
+    if (counter1 >= 24) {
       setState(() {
         counter2 = 0;
       });
