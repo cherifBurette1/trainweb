@@ -234,7 +234,7 @@ class Api {
       "arrival_time": arrivalTime,
       "base_id": base,
       "destination_id": destination,
-      "train_id": "11",
+      "train_id": "11 ",
       "priceA": priceA,
       "priceB": priceB,
       "priceC": "0",
