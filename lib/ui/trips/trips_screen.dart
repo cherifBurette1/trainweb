@@ -109,25 +109,24 @@ class _TripsState extends State<Trips> {
           children: [
             tripsList.length == 0
                 ? Center(
-              child: Container(
-                child: Text("The System Has No Trips. "),
-              ),
-            )
-                :Container(
-              alignment: Alignment.center,
-              // color: Colors.red,
-              // height: 470,
-              width: MediaQuery.of(context).size.width / 2.5,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: tripsList.length,
-                itemBuilder: (ctx, index) {
-                  return TripsBody(
-                    context,_scaffoldKey,tripsList[index]
-                  );
-                },
-              ),
-            ),
+                    child: Container(
+                      child: Text("The System Has No Trips. "),
+                    ),
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    // color: Colors.red,
+                    // height: 470,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: tripsList.length,
+                      itemBuilder: (ctx, index) {
+                        return TripsBody(
+                            context, _scaffoldKey, tripsList[index]);
+                      },
+                    ),
+                  ),
             VerticalDivider(
               thickness: 5,
               width: 10,
@@ -302,7 +301,6 @@ class _TripsState extends State<Trips> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 10),
                                     hintText: "Class A price",
-
                                     hintStyle: TextStyle(
                                         color: blackColor, fontSize: 13)),
                               ),
@@ -326,7 +324,6 @@ class _TripsState extends State<Trips> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 10),
                                     hintText: "Class B price",
-
                                     hintStyle: TextStyle(
                                         color: blackColor, fontSize: 13)),
                               ),
@@ -335,27 +332,7 @@ class _TripsState extends State<Trips> {
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 6.5,
-                              child: TextFormField(
-                                controller: classCController,
-                                decoration: InputDecoration(
-                                    fillColor: Colors.grey.withOpacity(.1),
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    contentPadding: new EdgeInsets.symmetric(
-                                        vertical: 0, horizontal: 10),
-                                    hintText: "Class C price",
 
-                                    hintStyle: TextStyle(
-                                        color: blackColor, fontSize: 13)),
-                              ),
-                            ),
-                          ),
                           // SizedBox(
                           //   height: 50,
                           // ),
@@ -432,7 +409,8 @@ class _TripsState extends State<Trips> {
   }
 }
 
-Widget TripsBody(BuildContext context,GlobalKey<ScaffoldState> _scaffoldKey,Success success){
+Widget TripsBody(BuildContext context, GlobalKey<ScaffoldState> _scaffoldKey,
+    Success success) {
   return InkWell(
     onTap: () {
       showDialog(
@@ -484,7 +462,7 @@ Widget TripsBody(BuildContext context,GlobalKey<ScaffoldState> _scaffoldKey,Succ
           elevation: 10,
           color: primaryAppColor,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

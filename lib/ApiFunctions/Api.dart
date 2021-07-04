@@ -13,6 +13,7 @@ import 'package:railway_admin/utils/custom_snackBar.dart';
 import 'package:railway_admin/utils/global_vars.dart';
 import 'package:railway_admin/utils/navigator.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
+import 'dart:math';
 
 class Api {
   String baseUrl = 'https://railway-project.herokuapp.com/api/';
@@ -24,6 +25,7 @@ class Api {
   String bookTicketUrl = 'tickets';
   String trainsUrl = 'trains';
   String walletUrl = 'wallet';
+  var random = new Random();
 
   BuildContext context;
 
@@ -234,8 +236,8 @@ class Api {
       "destination_id": destination,
       "train_id": "11",
       "priceA": priceA,
-      "priceB": priceA,
-      "priceC": priceA,
+      "priceB": priceB,
+      "priceC": "0",
     };
     var userToJson = json.encode(data);
     final response = await http.post(
