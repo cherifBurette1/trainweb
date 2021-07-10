@@ -9,11 +9,14 @@ import 'package:railway_admin/models/trains_model.dart';
 import 'package:railway_admin/models/trips.dart';
 import 'package:railway_admin/models/users.dart';
 import 'package:railway_admin/ui/splash.dart';
+import 'package:railway_admin/ui/trains/trains_screen.dart';
 import 'package:railway_admin/utils/custom_snackBar.dart';
 import 'package:railway_admin/utils/global_vars.dart';
 import 'package:railway_admin/utils/navigator.dart';
 import 'package:xs_progress_hud/xs_progress_hud.dart';
 import 'dart:math';
+
+dynamic trainid;
 
 class Api {
   String baseUrl = 'https://railway-project.herokuapp.com/api/';
@@ -25,6 +28,7 @@ class Api {
   String bookTicketUrl = 'tickets';
   String trainsUrl = 'trains';
   String walletUrl = 'wallet';
+  String carsUrl = 'add_cars';
   var random = new Random();
 
   BuildContext context;
@@ -219,6 +223,7 @@ class Api {
 
   Future addTripApi(
     GlobalKey<ScaffoldState> _scaffoldKey,
+    dynamic trainid,
     dynamic departmentTime,
     dynamic arrivalTime,
     dynamic base,
@@ -234,7 +239,7 @@ class Api {
       "arrival_time": arrivalTime,
       "base_id": base,
       "destination_id": destination,
-      "train_id": "11 ",
+      "train_id": trainid,
       "priceA": priceA,
       "priceB": priceB,
       "priceC": "0",
@@ -264,6 +269,93 @@ class Api {
     } else {
       CustomSnackBar(_scaffoldKey, context, dataContent.toString());
       return false;
+    }
+  }
+
+  Future addTrainApi(
+    dynamic priceC,
+  ) async {
+    XsProgressHud.show(context);
+    final String apiUrl = baseUrl + trainsUrl;
+    var data = {
+      "type": priceC,
+    };
+    var userToJson = json.encode(data);
+    final response = await http.post(
+      apiUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: UserTocken
+      },
+      body: userToJson,
+    );
+    Map<String, dynamic> dataContent = json.decode(response.body);
+    train_id = dataContent["success"]["id"];
+    print(train_id.toString());
+    dynamic idssss = dataContent["success"]["id"].toString();
+    print("dataContent1:: ${dataContent}");
+    print("dataContent2:: ${response.body.toString()}");
+
+    print(idssss);
+    return idssss;
+  }
+
+  Future addCarsApi(dynamic classa, dynamic classb, String id) async {
+    final String apiUrl = baseUrl + carsUrl + "/" + id;
+    print(apiUrl);
+    var data = {"A": classa, "B": classb, "C": "0"};
+    var userToJson = json.encode(data);
+    final response = await http.post(
+      apiUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: UserTocken
+      },
+      body: userToJson,
+    );
+    Map<String, dynamic> dataContent = json.decode(response.body);
+    dynamic idssss = id;
+    print("cars added");
+    print("dataContent1:: ${dataContent}");
+    print("dataContent2:: ${response.body.toString()}");
+    print(idssss);
+    return idssss;
+  }
+
+  Future addSeatsApi(GlobalKey<ScaffoldState> _scaffoldKey, dynamic seata,
+      dynamic seatb, String id) async {
+    final String apiUrl = baseUrl + "add_seats" + "/" + id;
+    print(apiUrl);
+    var data = {"seatA": seata, "SeatB": seatb, "SeatC": "0"};
+    var userToJson = json.encode(data);
+    final response = await http.post(
+      apiUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: UserTocken
+      },
+      body: userToJson,
+    );
+    XsProgressHud.hide();
+    if (response.statusCode == 200) {
+      print("seats added");
+      print("body :" + json.decode(response.body).toString());
+      // Navigator.pop(context);
+      CustomSnackBar(_scaffoldKey, context, "Train Added Successfully");
+      Future.delayed(Duration(seconds: 3), () {
+        navigateAndClearStack(context, SplashScreen());
+      });
+      // CustomSnackBar(_scaffoldKey, context,
+      //     json.decode(response.body)["success"].toString());
+      return true;
+    } else {
+      print("body :" + json.decode(response.body).toString());
+      CustomSnackBar(
+          _scaffoldKey, context, json.decode(response.body).toString());
+      idD = id;
     }
   }
 
@@ -401,7 +493,9 @@ class Api {
       //         ),
       //       ),
       //     ));
+
     } else {
+      print(response.body.toString());
       CustomSnackBar(
           _scaffoldKey, context, json.decode(response.body).toString());
       return false;

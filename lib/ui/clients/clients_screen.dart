@@ -7,6 +7,8 @@ import 'package:railway_admin/utils/colors_file.dart';
 import '../../utils/colors_file.dart';
 import '../../utils/colors_file.dart';
 
+bool loader = false;
+
 class Clients extends StatefulWidget {
   @override
   _ClientsState createState() => _ClientsState();
@@ -34,6 +36,7 @@ class _ClientsState extends State<Clients> {
 //    showHud();
   }
 
+  List<dynamic> hospitals = [];
   gettingData() {
     setState(() {
       Api(context).allUsersApi(_scaffoldKey).then((value) {
@@ -76,6 +79,7 @@ class _ClientsState extends State<Clients> {
                     // color: Colors.red,
                     height: MediaQuery.of(context).size.height / 1.2,
                     width: MediaQuery.of(context).size.width / 2.5,
+
                     child: ListView.builder(
                       itemCount: usersList.length,
                       itemBuilder: (ctx, index) {
@@ -118,10 +122,10 @@ class _ClientsState extends State<Clients> {
                                                     actions: [
                                                       FlatButton(
                                                           onPressed: () {
-                                                            Api(context)
-                                                                .AddToWalletApi(
-                                                                    _scaffoldKey,"${usersList[index].id}","${walletController.text}"
-                                                                    );
+                                                            Api(context).AddToWalletApi(
+                                                                _scaffoldKey,
+                                                                "${usersList[index].id}",
+                                                                "${walletController.text}");
                                                           },
                                                           child: Text(
                                                             "Confirm",
@@ -531,4 +535,28 @@ class _ClientsState extends State<Clients> {
   //         )),
   //   );
   // }
+  _searchBar() {
+    return (Container(
+        child: TextField(
+            decoration: InputDecoration(
+              hintText: "search for test center ",
+              prefixIcon: Icon(
+                Icons.search,
+                color: Color(0xff173059),
+              ),
+            ),
+            onChanged: (txt) {
+              this.hospitals = [];
+              this.usersList.forEach(
+                (hospital) {
+                  if (hospital.name.toString().toLowerCase().contains(txt)) {
+                    this.hospitals.add(hospital);
+                    setState(() {
+                      usersList = hospitals;
+                    });
+                  }
+                },
+              );
+            })));
+  }
 }

@@ -3,7 +3,6 @@ import 'package:railway_admin/ApiFunctions/Api.dart';
 import 'package:railway_admin/models/trains_model.dart';
 import 'package:railway_admin/ui/home.dart';
 import 'package:railway_admin/utils/colors_file.dart';
-import 'package:railway_admin/models/trainmo.dart';
 import 'package:railway_admin/utils/global_vars.dart';
 
 var trainnumController = TextEditingController();
@@ -11,32 +10,8 @@ var classacarsController = TextEditingController();
 var classbcarsController = TextEditingController();
 var aseatsController = TextEditingController();
 var bseatsController = TextEditingController();
-List<Trip> trips = [
-  Trip(
-    id: 0,
-    name: "Express",
-  ),
-  Trip(
-    id: 1,
-    name: "Special",
-  ),
-  Trip(
-    id: 2,
-    name: "Turbo",
-  ),
-  Trip(
-    id: 3,
-    name: "Fast",
-  ),
-  Trip(
-    id: 4,
-    name: "VIP",
-  ),
-  Trip(
-    id: 5,
-    name: "Spanish",
-  ),
-];
+String idD;
+dynamic idD2;
 
 class Trains extends StatefulWidget {
   @override
@@ -138,7 +113,7 @@ class _TrainsState extends State<Trains> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Clients Information",
+                          "Trians Information",
                           style: TextStyle(fontSize: 20),
                         ),
                         SizedBox(
@@ -156,41 +131,6 @@ class _TrainsState extends State<Trains> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          width: MediaQuery.of(context).size.width / 3,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(.1),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: DropdownButton(
-                            hint: Text(
-                              "Choose Train Type",
-                              style: TextStyle(
-                                  // color: Color(0xffb8c3cb).withOpacity(0.5),
-                                  ),
-                            ),
-                            icon: Icon(Icons.keyboard_arrow_down,
-                                color: Color(0xffb8c3cb)),
-                            isExpanded: true,
-                            underline: SizedBox(),
-                            dropdownColor: whiteColor,
-                            style: TextStyle(color: blackColor),
-                            value: train_id,
-                            onChanged: (newValue) {
-                              setState(() {
-                                train_id = newValue;
-                                print(train_id);
-                              });
-                            },
-                            items: trips.map((valueItem) {
-                              return DropdownMenuItem(
-                                value: valueItem.id,
-                                child: Text(valueItem.name),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
                           width: MediaQuery.of(context).size.width / 3,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width / 6.5,
@@ -205,7 +145,7 @@ class _TrainsState extends State<Trains> {
                                       borderRadius: BorderRadius.circular(5)),
                                   contentPadding: new EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 10),
-                                  hintText: "Train Number",
+                                  hintText: "Train Type",
                                   hintStyle: TextStyle(
                                       color: blackColor, fontSize: 13)),
                             ),
@@ -325,7 +265,7 @@ class _TrainsState extends State<Trains> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "Add Client",
+                              "Add Train",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
@@ -333,7 +273,32 @@ class _TrainsState extends State<Trains> {
                               width: 20,
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () async {
+                                idD2 = await Api(context)
+                                    .addTrainApi(trainnumController.text);
+
+                                setState(() {
+                                  train_id = idD2;
+                                  idD = train_id.toString();
+                                });
+                                print(train_id);
+                                print(idD);
+                                idD2 = await Api(context).addCarsApi(
+                                    classacarsController.text,
+                                    classbcarsController.text,
+                                    idD);
+                                setState(() {
+                                  train_id = idD2;
+                                  idD = train_id.toString();
+                                });
+                                print(train_id.toString());
+                                print(idD);
+                                await Api(context).addSeatsApi(
+                                    _scaffoldKey,
+                                    aseatsController.text,
+                                    bseatsController.text,
+                                    idD);
+                              },
                               child: Container(
                                 margin: EdgeInsets.only(right: 20),
                                 width: 50,

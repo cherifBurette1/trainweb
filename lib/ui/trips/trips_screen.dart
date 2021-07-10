@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:railway_admin/ApiFunctions/Api.dart';
 import 'package:railway_admin/models/stations.dart' as stationModelImport;
+import 'package:railway_admin/models/trains_model.dart' as trainsModelImport;
 import 'package:railway_admin/models/trip.dart';
 import 'package:railway_admin/models/trips.dart';
 import 'package:railway_admin/ui/home.dart';
@@ -21,7 +22,8 @@ class Trips extends StatefulWidget {
 class _TripsState extends State<Trips> {
   stationModelImport.StationsModel stationsModel;
   List<stationModelImport.Success> stationsList = List();
-
+  trainsModelImport.TrainsModel trainsModel;
+  List<trainsModelImport.Success> trainsList = List();
   TripsModel tripsModel;
   List<Success> tripsList = List();
 
@@ -34,8 +36,23 @@ class _TripsState extends State<Trips> {
     Future.delayed(Duration(milliseconds: 0), () {
       gettingData();
       gettingData2();
+      gettingData5();
     });
 //    showHud();
+  }
+
+  gettingData5() {
+    setState(() {
+      Api(context).getTrainsApi(_scaffoldKey).then((value) {
+        trainsModel = value;
+        trainsModel.success.forEach((element) {
+          setState(() {
+            trainsList.add(element);
+          });
+        });
+        // usersList = usersList.reversed.toList();
+      });
+    });
   }
 
   gettingData2() {
@@ -235,6 +252,43 @@ class _TripsState extends State<Trips> {
                             height: 20,
                           ),
                           Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            width: MediaQuery.of(context).size.width / 3,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: DropdownButton(
+                              hint: Text(
+                                "Choose Train Type",
+                                style: TextStyle(
+                                    // color: Color(0xffb8c3cb).withOpacity(0.5),
+                                    ),
+                              ),
+                              icon: Icon(Icons.keyboard_arrow_down,
+                                  color: Color(0xffb8c3cb)),
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              dropdownColor: whiteColor,
+                              style: TextStyle(color: blackColor),
+                              value: train_destination_id,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  train_destination_id = newValue;
+                                  print(train_destination_id);
+                                });
+                              },
+                              items: trainsList.map((valueItem) {
+                                return DropdownMenuItem(
+                                  value: valueItem.id,
+                                  child: Text(valueItem.type),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
                             width: MediaQuery.of(context).size.width / 3,
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width / 6.5,
@@ -283,6 +337,7 @@ class _TripsState extends State<Trips> {
                               ),
                             ),
                           ),
+
                           SizedBox(
                             height: 20,
                           ),
@@ -371,6 +426,7 @@ class _TripsState extends State<Trips> {
                                 onTap: () {
                                   Api(context).addTripApi(
                                     _scaffoldKey,
+                                    train_destination_id,
                                     departmentTimeController.text,
                                     arrivalTimeController.text,
                                     trip_base_id,

@@ -9,3 +9,4 @@ dynamic trip_base_id;
 dynamic trip_destination_id;
 dynamic trip_departmentTime;
 dynamic trip_arrivalTime;
+dynamic train_destination_id;
