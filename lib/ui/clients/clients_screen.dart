@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:railway_admin/ApiFunctions/Api.dart';
+import 'package:railway_admin/dashboard_screen.dart';
 import 'package:railway_admin/models/allUsers_model.dart';
 import 'package:railway_admin/ui/home.dart';
 import 'package:railway_admin/utils/colors_file.dart';
 
+import '../../MyFiles.dart';
 import '../../utils/colors_file.dart';
 import '../../utils/colors_file.dart';
 
@@ -62,6 +64,10 @@ class _ClientsState extends State<Clients> {
             usersList.add(element);
             tripsListForDisplay = usersList;
           });
+        });
+        setState(() {
+          userCountvar = usersList.length;
+          print(userCountvar);
         });
         // usersList = usersList.reversed.toList();
       });

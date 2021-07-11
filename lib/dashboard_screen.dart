@@ -13,6 +13,7 @@ import 'models/trip.dart';
 import 'package:railway_admin/models/stations.dart' as stationModelImport;
 import 'package:railway_admin/models/trains_model.dart' as trainsModelImport;
 
+int userCount = 0;
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 List<CloudStorageInfo> demoo = List();
 
@@ -32,55 +33,58 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<Success> tripsList = List();
   List<Success> usersList = List();
   List<CloudStorageInfo> demoo = List();
-  @override
+/*   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(milliseconds: 0), () {
-      gettingData();
+    Future.delayed(Duration(milliseconds: 0), () async {
+      await gettingData();
     });
 //    showHud();
   }
-
+ */
   gettingData() {
     setState(() {
-      Api(context).allUsersApi(_scaffoldKey).then((value) {
-        var allUsersModel = value;
-        allUsersModel.success.forEach((element) {
-          setState(() {
-            usersList.add(element);
-          });
-          demoo.add(CloudStorageInfo(
-              svgSrc: 'assets/icons/train1.svg',
-              title: "Clients",
-              numOfFiles: usersList.length,
-              percentage: 35,
-              color: primaryColor,
-              totalStorage: "Clients this Month"));
-          demoo.add(CloudStorageInfo(
-              svgSrc: 'assets/icons/train1.svg',
-              title: "Clients",
-              numOfFiles: usersList.length,
-              percentage: 35,
-              color: primaryColor,
-              totalStorage: "Clients this Month"));
-          demoo.add(CloudStorageInfo(
-              svgSrc: 'assets/icons/train1.svg',
-              title: "Clients",
-              numOfFiles: usersList.length,
-              percentage: 35,
-              color: primaryColor,
-              totalStorage: "Clients this Month"));
-          demoo.add(CloudStorageInfo(
-              svgSrc: 'assets/icons/train1.svg',
-              title: "Clients",
-              numOfFiles: usersList.length,
-              percentage: 35,
-              color: primaryColor,
-              totalStorage: "Clients this Month"));
-        });
-        // usersList = usersList.reversed.toList();
-      });
+      demoo.add(CloudStorageInfo(
+          svgSrc: 'assets/icons/train1.svg',
+          title: "Clients",
+          numOfFiles: userCount,
+          percentage: 35,
+          color: Colors.blue,
+          totalStorage: "Clients this Month"));
+      demoo.add(CloudStorageInfo(
+          svgSrc: 'assets/icons/train1.svg',
+          title: "Clients",
+          numOfFiles: userCount,
+          percentage: 35,
+          color: Colors.blue,
+          totalStorage: "Clients this Month"));
+      demoo.add(CloudStorageInfo(
+          svgSrc: 'assets/icons/train1.svg',
+          title: "Clients",
+          numOfFiles: userCount,
+          percentage: 35,
+          color: Colors.blue,
+          totalStorage: "Clients this Month"));
+      demoo.add(CloudStorageInfo(
+          svgSrc: 'assets/icons/train1.svg',
+          title: "Clients",
+          numOfFiles: userCount,
+          percentage: 35,
+          color: Colors.blue,
+          totalStorage: "Clients this Month"));
+      print(userCount);
+    });
+
+    print("hello2: " +
+        demoo1[0].svgSrc +
+        demoo1[0].title +
+        demoo1[0].totalStorage +
+        demoo1[0].color.toString() +
+        demoo1[0].numOfFiles.toString() +
+        demoo1[0].percentage.toString());
+    setState(() {
+      userCount = 0;
     });
   }
 

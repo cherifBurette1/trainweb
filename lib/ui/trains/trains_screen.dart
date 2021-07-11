@@ -5,6 +5,8 @@ import 'package:railway_admin/ui/home.dart';
 import 'package:railway_admin/utils/colors_file.dart';
 import 'package:railway_admin/utils/global_vars.dart';
 
+import '../../MyFiles.dart';
+
 var trainnumController = TextEditingController();
 var classacarsController = TextEditingController();
 var classbcarsController = TextEditingController();
@@ -42,6 +44,10 @@ class _TrainsState extends State<Trains> {
           setState(() {
             trainsList.add(element);
           });
+        });
+        setState(() {
+          trainCountvar = trainsList.length;
+          print(trainCountvar);
         });
         // usersList = usersList.reversed.toList();
       });

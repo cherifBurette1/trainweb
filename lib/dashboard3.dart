@@ -9,14 +9,14 @@ import 'package:railway_admin/utils/colors_file.dart';
 import 'package:railway_admin/utils/dashboard_drawer.dart';
 import 'package:railway_admin/dashboard_screen.dart';
 import '../utils/colors_file.dart';
-import 'package:railway_admin/map.dart';
+import 'package:railway_admin/mapb.dart';
 
-class Dashboard2 extends StatefulWidget {
+class Dashboard3 extends StatefulWidget {
   @override
-  _Dashboard2State createState() => _Dashboard2State();
+  _Dashboard3State createState() => _Dashboard3State();
 }
 
-class _Dashboard2State extends State<Dashboard2>
+class _Dashboard3State extends State<Dashboard3>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
@@ -25,7 +25,7 @@ class _Dashboard2State extends State<Dashboard2>
     Trips(),
     Tickets(),
     Trains(),
-    Map(),
+    Map2(),
     DashboardScreen(),
   ];
 

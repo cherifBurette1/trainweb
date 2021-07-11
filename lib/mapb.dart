@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:google_maps/google_maps.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:railway_admin/dashboard2.dart';
+import 'package:railway_admin/dashboard3.dart';
 import 'package:flutter/src/widgets/icon.dart' as iconsimp;
 import 'package:railway_admin/ui/dashboard.dart';
 
@@ -17,21 +17,21 @@ bool refresh = true;
 int counter = 0;
 int counter1 = 0;
 int counter2 = 0;
-LatLng train1 = LatLng(30.06460723927716, 31.25022562739004);
+LatLng train1 = LatLng(31.031580857134745, 30.488025875983332);
 LatLng train2 = LatLng(30.06460723927716, 31.25022562739004);
 LatLng train3 = LatLng(28.096427875759424, 30.751405415724406);
-LatLng traina1 = LatLng(30.06460723927716, 31.25022562739004);
+LatLng traina1 = LatLng(31.031580857134745, 30.488025875983332);
 LatLng traina2 = LatLng(30.06460723927716, 31.25022562739004);
 LatLng traina3 = LatLng(28.096427875759424, 30.751405415724406);
 
-class Map extends StatefulWidget {
-  const Map({Key key}) : super(key: key);
+class Map2 extends StatefulWidget {
+  const Map2({Key key}) : super(key: key);
 
   @override
-  _MapState createState() => _MapState();
+  _Map2State createState() => _Map2State();
 }
 
-class _MapState extends State<Map> {
+class _Map2State extends State<Map2> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -52,7 +52,7 @@ class _MapState extends State<Map> {
           Navigator.pushReplacement(
               context,
               new MaterialPageRoute(
-                builder: (context) => Dashboard2(),
+                builder: (context) => Dashboard3(),
               ));
         });
       }
@@ -94,7 +94,7 @@ class _MapState extends State<Map> {
   }
 
   checkcounter() {
-    if (counter >= 91) {
+    if (counter >= 65) {
       setState(() {
         counter = 0;
       });
@@ -140,7 +140,6 @@ class _MapState extends State<Map> {
       Polyline(PolylineOptions()
         ..map = map
         ..path = [
-          LatLng(31.218610752908937, 29.942156790466374),
           LatLng(31.031580857134745, 30.488025875983332),
           LatLng(30.783109054618496, 30.993628700680027),
           LatLng(30.499529362952416, 31.16089471138503),
@@ -149,7 +148,7 @@ class _MapState extends State<Map> {
       Marker(MarkerOptions()
         ..position = traina1
         ..map = map
-        ..title = 'Train 304'
+        ..title = 'Train 212'
         ..icon = 'assets/images/train_png1.png'
         ..clickable = true);
       /*   Marker(MarkerOptions()
@@ -173,7 +172,7 @@ class _MapState extends State<Map> {
   }
 
   getrainlocation() async {
-    dynamic response = await rootBundle.loadString('/json/1.json');
+    dynamic response = await rootBundle.loadString('/json/2.json');
     dynamic responsedata = await json.decode(response);
 
     num loclat = responsedata[counter.toString()]['lat'];

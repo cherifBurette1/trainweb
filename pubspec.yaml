@@ -20,7 +20,7 @@ dependencies:
   google_fonts: 
   fl_chart: ^0.36.1
   provider: ^5.0.0
-  
+  fluttertoast:
 #  permission:
 #  geolocator: ^5.3.1
 #  geocoding: ^1.0.5

@@ -1,6 +1,11 @@
 import 'constants.dart';
 import 'package:flutter/material.dart';
 
+int userCountvar = 0;
+int trainCountvar = 0;
+int stationCountvar = 0;
+int tripsCountvar = 0;
+
 class CloudStorageInfo {
   final String svgSrc, title, totalStorage;
   final int numOfFiles, percentage;
@@ -16,36 +21,37 @@ class CloudStorageInfo {
   });
 }
 
+List demoo1;
 List demoMyFiles = [
   CloudStorageInfo(
-    title: "VIP train",
-    numOfFiles: 1328,
+    title: "Clients",
+    numOfFiles: userCountvar,
     svgSrc: 'assets/icons/train1.svg',
-    totalStorage: "1.9GB",
+    totalStorage: " Clients on System",
     color: primaryColor,
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "Express train",
-    numOfFiles: 1328,
+    title: "Stations",
+    numOfFiles: stationCountvar,
     svgSrc: 'assets/icons/train1.svg',
-    totalStorage: "2.9GB",
+    totalStorage: " Trains on System",
     color: Color(0xFFFFA113),
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "Speed train",
-    numOfFiles: 1328,
+    title: "Trains",
+    numOfFiles: trainCountvar,
     svgSrc: 'assets/icons/train1.svg',
-    totalStorage: "1GB",
+    totalStorage: " Trains on System",
     color: Color(0xFFA4CDFF),
     percentage: 10,
   ),
   CloudStorageInfo(
-    title: "Special train",
-    numOfFiles: 5328,
+    title: "Trips",
+    numOfFiles: tripsCountvar,
     svgSrc: 'assets/icons/train1.svg',
-    totalStorage: "7.3GB",
+    totalStorage: " Trips on System",
     color: Color(0xFF007EE5),
     percentage: 78,
   ),

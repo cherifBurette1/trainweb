@@ -23,7 +23,6 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
-
   UsersModel usersModel;
 
   bool _autoValidate = false;
@@ -52,7 +51,7 @@ class _SigninState extends State<Signin> {
             Container(width: 75, height: 2, color: AppColors.yellow),
             const SizedBox(height: 50),
             Padding(
-              padding: const EdgeInsets.only(left: 250,right: 250),
+              padding: const EdgeInsets.only(left: 250, right: 250),
               child: _buildSigininForm(context),
             )
           ],
@@ -148,42 +147,41 @@ class _SigninState extends State<Signin> {
                 child: RaisedButton(
                   color: AppColors.yellow,
                   textColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  onPressed: (){
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  onPressed: () {
                     _validateInputs();
                     if (_formKey.currentState.validate()) {
                       Api(context)
                           .userLogin(scafoldState, _emailController.text,
-                          _passwordController.text)
+                              _passwordController.text)
                           .then((value) {
                         if (value is UsersModel) {
                           usersModel = value;
                           Future.delayed(Duration(seconds: 1), () {
-                              setUserTocken(
-                                auth_token: usersModel
-                                    .token.plainTextToken
-                                    .split("|")[1],
-                                userId: usersModel.user.id,
-                                userName: usersModel.user.name,
-                                userEmail: usersModel.user.email,
-                                userPhone: usersModel.user.phoneNumber,
-                                userJoinedTime: usersModel.token.accessToken.createdAt,
-                              )
-                                  .then((value) {
-                                UserTocken =
-                                "Bearer ${usersModel.token.plainTextToken.split("|")[1]}";
-                                userName = usersModel.user.name;
-                                userEmail = usersModel.user.email;
-                                userPhone = usersModel.user.phoneNumber;
-                                userJoinedTime = usersModel.token.accessToken.createdAt;
-                                userId = usersModel.user.id;
-                                navigateAndKeepStack(
-                                    context, Dashboard());
-                                // navigateAndKeepStack(context,Competitions());
-                              });
+                            setUserTocken(
+                              auth_token:
+                                  usersModel.token.plainTextToken.split("|")[1],
+                              userId: usersModel.user.id,
+                              userName: usersModel.user.name,
+                              userEmail: usersModel.user.email,
+                              userPhone: usersModel.user.phoneNumber,
+                              userJoinedTime:
+                                  usersModel.token.accessToken.createdAt,
+                            ).then((value) {
+                              UserTocken =
+                                  "Bearer ${usersModel.token.plainTextToken.split("|")[1]}";
+                              userName = usersModel.user.name;
+                              userEmail = usersModel.user.email;
+                              userPhone = usersModel.user.phoneNumber;
+                              userJoinedTime =
+                                  usersModel.token.accessToken.createdAt;
+                              userId = usersModel.user.id;
+                              navigateAndKeepStack(context, Dashboard());
+                              // navigateAndKeepStack(context,Competitions());
+                            });
 
 //talent_id: 46
-
                           });
                         } else {}
                       });
@@ -193,7 +191,7 @@ class _SigninState extends State<Signin> {
                   //   Navigator.push(context,
                   //       MaterialPageRoute(builder: (context) => Dashboard()));
                   // },
-                    ,
+                  ,
                   child: Text('Login'),
                 ),
               ),

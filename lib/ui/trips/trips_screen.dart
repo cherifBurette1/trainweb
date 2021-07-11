@@ -10,6 +10,8 @@ import 'package:railway_admin/utils/colors_file.dart';
 import 'package:railway_admin/utils/custom_button.dart';
 import 'package:railway_admin/utils/global_vars.dart';
 
+import '../../MyFiles.dart';
+
 class Trips extends StatefulWidget {
   final Trip trip;
 
@@ -66,6 +68,10 @@ class _TripsState extends State<Trips> {
             stationsList.add(element);
           });
         });
+        setState(() {
+          stationCountvar = stationsList.length;
+          print(stationCountvar);
+        });
       });
     });
   }
@@ -81,8 +87,6 @@ class _TripsState extends State<Trips> {
       if (userDetail.destinationStation.name.contains(text))
         _searchResult.add(userDetail);
     });
-
-    setState(() {});
   }
 
   gettingData() {
@@ -94,6 +98,10 @@ class _TripsState extends State<Trips> {
             tripsList.add(element);
             tripsListForDisplay = tripsList;
           });
+        });
+        setState(() {
+          tripsCountvar = tripsList.length;
+          print(tripsCountvar);
         });
       });
     });
