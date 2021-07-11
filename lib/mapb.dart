@@ -41,7 +41,7 @@ class _Map2State extends State<Map2> {
         counter1++;
         counter2++;
 
-        await Future.delayed(const Duration(seconds: 2), () {
+        await Future.delayed(const Duration(seconds: 5), () {
           checkcounter();
           //    checkcounter1();
           getrainlocationa();

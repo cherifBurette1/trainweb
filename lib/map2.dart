@@ -78,40 +78,36 @@ class _PreMapState extends State<PreMap> {
                   color: Color(0xff173059),
                   onPressed: () async {
                     print(trains212.toString());
+
                     if (trains212 == "0") {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Dashboard2()));
-                    }
-                    if (trains212 == "1") {
+                    } else if (trains212 == "1") {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Dashboard3()));
-                    }
-                    if (trains212 == "2") {
+                    } else if (trains212 == "2") {
                       Fluttertoast.showToast(
                           msg: "tracking is not supported by this train!",
                           webBgColor:
                               "linear-gradient(to right, #ff0000, #ff0000)",
                           timeInSecForIosWeb: 2);
-                    }
-                    if (trains212 == "3") {
+                    } else if (trains212 == "3") {
                       Fluttertoast.showToast(
                           msg: "tracking is not supported by this train!",
                           webBgColor:
                               "linear-gradient(to right, #ff0000, #ff0000)",
                           timeInSecForIosWeb: 2);
-                    }
-                    if (trains212 == "4") {
+                    } else if (trains212 == "4") {
                       Fluttertoast.showToast(
                           msg: "tracking is not supported by this train!",
                           webBgColor:
                               "linear-gradient(to right, #ff0000, #ff0000)",
                           timeInSecForIosWeb: 2);
-                    }
-                    if (trains212 == "5") {
+                    } else if (trains212 == "5") {
                       Fluttertoast.showToast(
                           msg: "tracking is not supported by this train!",
                           webBgColor:
