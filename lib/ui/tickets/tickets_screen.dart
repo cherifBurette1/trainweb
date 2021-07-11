@@ -82,7 +82,7 @@ class _TicketsState extends State<Tickets> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Tickets Information",
+                        "System Tickets",
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
@@ -101,7 +101,7 @@ class _TicketsState extends State<Tickets> {
                       ),
                     ],
                   ),
-                  Column(
+                  /*               Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -134,7 +134,7 @@ class _TicketsState extends State<Tickets> {
                         ],
                       ),
                     ],
-                  )
+                  ) */
                 ],
               )),
         ],

@@ -17,6 +17,8 @@ import '../config/styles.dart';
 import '../config/colors.dart';
 import '../utils/extensions.dart';
 
+bool _isHidden = true;
+
 class Signin extends StatefulWidget {
   @override
   _SigninState createState() => _SigninState();
@@ -24,6 +26,11 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   UsersModel usersModel;
+  void _toggleVisibility() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
   bool _autoValidate = false;
 
@@ -135,9 +142,22 @@ class _SigninState extends State<Signin> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
+                obscureText: _isHidden,
                 validator: validatePassword,
                 decoration: InputDecoration(
                   hintText: 'Password',
+                  suffixIcon: IconButton(
+                    onPressed: _toggleVisibility,
+                    icon: _isHidden
+                        ? Icon(
+                            Icons.visibility_off,
+                            color: Colors.grey[400],
+                          )
+                        : Icon(
+                            Icons.visibility,
+                            color: Colors.black,
+                          ),
+                  ),
                   border: OutlineInputBorder(),
                 ),
               ),

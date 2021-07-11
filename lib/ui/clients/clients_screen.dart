@@ -295,6 +295,9 @@ class _ClientsState extends State<Clients> {
                       ),
                       Column(
                         children: [
+                          SizedBox(
+                            height: 180,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
