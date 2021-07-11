@@ -20,6 +20,8 @@ class Trips extends StatefulWidget {
 }
 
 class _TripsState extends State<Trips> {
+  List<Success> tripsListForDisplay = List();
+  List<Success> _searchResult = [];
   stationModelImport.StationsModel stationsModel;
   List<stationModelImport.Success> stationsList = List();
   trainsModelImport.TrainsModel trainsModel;
@@ -68,6 +70,21 @@ class _TripsState extends State<Trips> {
     });
   }
 
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    tripsList.forEach((userDetail) {
+      if (userDetail.destinationStation.name.contains(text))
+        _searchResult.add(userDetail);
+    });
+
+    setState(() {});
+  }
+
   gettingData() {
     setState(() {
       Api(context).tripsApi(_scaffoldKey).then((value) {
@@ -75,6 +92,7 @@ class _TripsState extends State<Trips> {
         tripsModel.success.forEach((element) {
           setState(() {
             tripsList.add(element);
+            tripsListForDisplay = tripsList;
           });
         });
       });
@@ -135,14 +153,65 @@ class _TripsState extends State<Trips> {
                     // color: Colors.red,
                     // height: 470,
                     width: MediaQuery.of(context).size.width / 2.5,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: tripsList.length,
-                      itemBuilder: (ctx, index) {
-                        return TripsBody(
-                            context, _scaffoldKey, tripsList[index]);
-                      },
-                    ),
+                    child: ListView(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 30),
+                        child: SizedBox(
+                          height: 60,
+                          child: Column(children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              style: TextStyle(color: Colors.black),
+                              onChanged: (text) {
+                                setState(() {
+                                  text = text.toLowerCase();
+                                  tripsListForDisplay =
+                                      tripsList.where((element) {
+                                    var title = element.destinationStation.name
+                                        .toLowerCase();
+                                    return title.contains(text);
+                                  }).toList();
+                                });
+                              },
+                              cursorColor: primaryAppColor,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide.none),
+                                fillColor: primaryAppColor.withOpacity(0.1),
+                                filled: true,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        BorderSide(color: blueAppColor)),
+                                suffixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                ),
+                                hintText: "Find your destination ...",
+                                hintStyle: TextStyle(color: Colors.black),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                                // enabledBorder: InputBorder.none,
+                                // border: OutlineInputBorder(
+                                //     borderSide:
+                                //         BorderSide(color: primaryAppColor, width: .8)),
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: tripsListForDisplay.length,
+                        itemBuilder: (ctx, index) {
+                          return TripsBody(context, _scaffoldKey,
+                              tripsListForDisplay[index]);
+                        },
+                      ),
+                    ]),
                   ),
             VerticalDivider(
               thickness: 5,
